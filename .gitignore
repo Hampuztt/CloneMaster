@@ -1,0 +1,8 @@
+# Ignore everything
+*
+
+# But do not ignore the .gitignore file itself
+!.gitignore
+
+# And do not ignore fast.sh
+!fast.sh
