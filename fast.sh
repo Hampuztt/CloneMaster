@@ -28,6 +28,7 @@ else
     REF=""
 fi
 
+
 # Validate that the extracted base URL is a valid Git repository URL
 if [[ ! ($BASE_URL =~ ^https://gitlab.* || $BASE_URL =~ .*.git$) ]]; then
     echo "Error: The clipboard content is $BASE_URL and dosen't look like a git repository URL!"
@@ -49,24 +50,34 @@ echo "Labb 8 - trailblazer"
 read -p ": " SEARCH_KEYWORD
 
 # Remove any previously cloned repository (specific to the script's context)
-rm -rf tddd86-*
+#rm -rf tddd86-*
 
 # Clone the repository using the extracted base URL
-git clone $BASE_URL || { echo "Error: Git clone failed"; exit 1; }
-
-# Determine the directory name of the cloned repository
+# Determine unique folder name
+OWNER_NAME=$(echo $BASE_URL | sed -r 's#https://gitlab\.([^/]+)/([^/]+)/.*#\2#')
 DIR_NAME=$(basename $BASE_URL .git)
+UNIQUE_DIR_NAME="${OWNER_NAME}-${DIR_NAME}"
 
-# If a branch or commit reference was extracted, switch to it
-if [ ! -z "$REF" ]; then
-    echo "Attempting to checkout: $REF"
-    pushd $DIR_NAME
-    git checkout $REF
-    popd
+
+
+# Check if the repository already exists locally
+if [ -d "$UNIQUE_DIR_NAME" ]; then
+    cd $UNIQUE_DIR_NAME
+    git pull
+    if [ ! -z "$REF" ]; then
+        git checkout $REF
+    fi
+    cd ..
+else
+    git clone $BASE_URL ${REF:+--branch $REF} $UNIQUE_DIR_NAME || { echo "Error: Git clone failed"; exit 1; }
 fi
+# Determine the directory name of the cloned repository
+#DIR_NAME=$(basename $BASE_URL .git)
 
 # Find the Qt project file (.pro) with the specified keyword in the cloned repository
-FILE_PATH=$(find $DIR_NAME -type f -iname "${SEARCH_KEYWORD}.pro")
+FILE_PATH=$(find $UNIQUE_DIR_NAME -type f -iname "${SEARCH_KEYWORD}.pro")
+
+#echo "FILE_PATH: $FILE_PATH $UNIQUE_DIR_NAME"
 
 # If the Qt project file is found, open it with Qt Creator; else, display an error
 if [ ! -z "$FILE_PATH" ]; then
