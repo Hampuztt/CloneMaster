@@ -63,6 +63,7 @@ UNIQUE_DIR_NAME="${OWNER_NAME}-${DIR_NAME}"
 # Check if the repository already exists locally
 if [ -d "$UNIQUE_DIR_NAME" ]; then
     cd $UNIQUE_DIR_NAME
+    git reset --hard
     git pull
     if [ ! -z "$REF" ]; then
         git checkout $REF
