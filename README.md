@@ -1,12 +1,10 @@
 # StudentLab CloneMaster
 
 ## Overview
-StudentLab CloneMaster is a simple Bash script designed to streamline the process of fetching and reviewing projects from GitLab. Tailored for educators and students, it simplifies the task of handling code for various programming assignments. With just a few commands, you can clone repositories, locate specific files, and open them in Qt Creator. This tool is currently configured to work seamlessly with the TDDD86 course at Linköping University (LiU).
+StudentLab CloneMaster is a simple Bash script designed to streamline the process of fetching and reviewing projects from GitLab. It simplifies the task of handling code for various programming assignments. With just one command, you can clone repositories, locate specific files, and open them with your preferred editor. This tool is currently configured to work  with the TDDD86 c++ Data Algorithms and Structures course at Linköping University (LiU).
 
 ## Features
 - **Easy Cloning**: Quickly clone GitLab repositories with a single command.
-- **File Searching**: Automatically find and list project files.
-- **Integration with Qt Creator**: Open project files directly in Qt Creator for review or editing.
 - **Customizable**: Easily adaptable for different programming assignments.
 
 ## Installation
