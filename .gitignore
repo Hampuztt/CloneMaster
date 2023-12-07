@@ -3,6 +3,6 @@
 
 # But do not ignore the .gitignore file itself
 !.gitignore
-
+!README.md
 # And do not ignore fast.sh
 !fast.sh
